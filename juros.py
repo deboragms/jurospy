@@ -26,6 +26,9 @@ def calculajuros ():
     vpercentual = float(percentual.get().replace(',', '.')) # Pega o valor que está em string na variável e transforma em decimal
 
     jurosimples = vvaloremp * vprestacoes * vpercentual
+    montante = vvaloremp + jurosimples
+    prestacao = montante / vprestacoes
+    juroscompostos = vvaloremp * (1 + (vpercentual/100)) * vprestacoes
 
 # def executa ():
     
@@ -47,11 +50,11 @@ fresultado.place(x = 10, y = 210)
 ltitulo = ctk.CTkLabel(ftitulo, text='Cálculo de Juros', font=('Arial', 22))
 ltitulo.place(x = 20, y = 10)
 
-# label juros simples
+# titulo juros simples
 lsimples= ctk.CTkLabel(fresultado, text='Juros Simples', font=('Arial', 22))
 lsimples.place(x = 80, y = 10)
 
-# label juros compostos
+# titulo juros compostos
 lcomposto = ctk.CTkLabel(fresultado, text='Juros Compostos', font=('Arial', 22))
 lcomposto.place(x = 420, y = 10)
 
