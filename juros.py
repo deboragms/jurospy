@@ -11,6 +11,7 @@
 # preparação de tela --------------------------------------------------------------------
 
 import customtkinter as ctk # importa a biblioteca que será utilizada e cria um apelido
+from lib import exiberesultado
 
 ctk.set_appearance_mode('dark') # estabelece o modo de tela
 app = ctk.CTk() # inicia a biblioteca e suas funções
@@ -25,10 +26,15 @@ def calculajuros ():
     vprestacoes = int(prestacoes.get().replace(',', '.')) # Pega o valor que está em string na variável e transforma em inteiro
     vpercentual = float(percentual.get().replace(',', '.')) # Pega o valor que está em string na variável e transforma em decimal
 
-    jurosimples = vvaloremp * vprestacoes * vpercentual
+    jurosimples = vvaloremp * vprestacoes * (vpercentual / 100)
     montante = vvaloremp + jurosimples
     prestacao = montante / vprestacoes
     juroscompostos = vvaloremp * (1 + (vpercentual/100)) * vprestacoes
+
+    exiberesultado(fjurosimples, 25, 10, "Juros Simples: ", jurosimples, 'preto')
+    exiberesultado(fjurosimples, 25, 45, "Montante: ", montante, 'preto')
+    exiberesultado(fjurosimples, 25, 80, "Prestação: ", prestacao, 'preto')
+    # exiberesultado(frame_resultado, horx, verty, texto, valor, cor):
 
 # def executa ():
     
@@ -66,30 +72,6 @@ fjurosimples.place(x = 10, y = 50)
 fjurocomposto = ctk.CTkFrame (fresultado, width=300, height= 200, border_width=2, fg_color="#FFFFFF")
 fjurocomposto.place(x = 350, y = 50)
 
-# frame valor do juros 
-fvjurossimples = ctk.CTkFrame (fjurosimples, width=280, height= 40, border_width=1, fg_color="#000000")
-fvjurossimples.place(x = 10, y = 20)
-
-# frame valor do montante 
-fmontante = ctk.CTkFrame (fjurosimples, width=280, height= 40, border_width=1, fg_color="#000000")
-fmontante.place(x = 10, y = 80)
-
-# frame valor da prestacao 
-fprestacao = ctk.CTkFrame (fjurosimples, width=280, height= 40, border_width=1, fg_color="#000000")
-fprestacao.place(x = 10, y = 140)
-
-# frame valor do juros compostos 
-fvjurocomposto = ctk.CTkFrame (fjurocomposto, width=280, height= 40, border_width=1, fg_color="#000000")
-fvjurocomposto.place(x = 10, y = 20)
-
-# frame valor do montante compostos
-fmontantecomposto = ctk.CTkFrame (fjurocomposto, width=280, height= 40, border_width=1, fg_color="#000000")
-fmontantecomposto.place(x = 10, y = 80)
-
-# frame valor da prestacao compostos
-fprestacaocomposto = ctk.CTkFrame (fjurocomposto, width=280, height= 40, border_width=1, fg_color="#000000")
-fprestacaocomposto.place(x = 10, y = 140)
-
 # valor do emprestimo 
 lvaloremp= ctk.CTkLabel(fdados, text='Valor do empréstimo: ', font=('Arial', 18))
 lvaloremp.place(x = 10, y = 70)
@@ -115,8 +97,7 @@ epercentual = ctk.CTkEntry(fdados, textvariable = percentual, width = 120)
 epercentual.place(x = 190, y = 150)
 
 #  botao para executar e fechar
-bexecuta = ctk.CTkButton(fdados, text='Executa', width=200,font= ('Arial', 16) # command = executa 
-)
+bexecuta = ctk.CTkButton(fdados, text='Executa', width=200,font= ('Arial', 16), command = calculajuros)
 bexecuta.place(x = 470, y = 70)
 
 bfecha = ctk.CTkButton(fdados, text='Fecha', width=200, font= ('Arial', 16), fg_color= "#AA0000", hover_color= "#AA0000", command = app.destroy)
